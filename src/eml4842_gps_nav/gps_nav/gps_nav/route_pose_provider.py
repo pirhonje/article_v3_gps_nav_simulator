@@ -35,8 +35,10 @@ class RoutePoseProvider(Node):
             return
 
         num_poses = len(self.route_poses)
-  
-        if num_poses > 300:
+        
+        #JP
+        #if num_poses > 300:
+        if num_poses > 1500:
             self.get_logger().warn(f"Route contains over 300 poses. Unable to complete request")
             return
 

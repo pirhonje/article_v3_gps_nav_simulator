@@ -1,8 +1,8 @@
 ---
 int16 num_route_poses
-geometry_msgs/Pose[300] mypose
+geometry_msgs/Pose[1500] mypose
 float64  offset_x
 float64  offset_y
-int16[300]  state
+int16[1500]  state
 bool     want_loop
 string state_dictionary

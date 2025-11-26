@@ -180,11 +180,11 @@ def main(args=None):
                 goal_pose_creator.ready_to_process = True
                 goal_pose_creator.get_logger().info('Ready to proceed.')
 
-                #outfile = open('equally_spaced.csv', 'w')
-                #for seg in goal_pose_creator.route_segments:
-                #    for j in np.arange(len(seg.pt_info)):
-                #        print(f'{seg.pt_info[j,0]}, {seg.pt_info[j,1]}, {seg.pt_info[j,2]}, {seg.pt_info[j,3]}, {seg.pt_info[j,4]}', file = outfile)
-                #outfile.close()
+                outfile = open('equally_spaced.csv', 'w')
+                for seg in goal_pose_creator.route_segments:
+                    for j in np.arange(len(seg.pt_info)):
+                        print(f'{seg.pt_info[j,0]}, {seg.pt_info[j,1]}, {seg.pt_info[j,2]}, {seg.pt_info[j,3]}, {seg.pt_info[j,4]}', file = outfile)
+                outfile.close()
 
             break
 

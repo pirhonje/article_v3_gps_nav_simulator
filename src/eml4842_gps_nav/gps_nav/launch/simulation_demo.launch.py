@@ -15,7 +15,8 @@ def generate_launch_description():
                 {'want_loop': False},
                 {'state_defs': '{0:\'OFF\', 1:\'ON\', 2:\'OUTSIDE\', 3:\'ENTRY_EXTENSION_PT\', 4:\'EXIT_EXTENSION_PT\', 5:\'EXIT_TURN_PT\', 6:\'START\', 7:\'END\', 8:\'UTURN_PT1\', 9:\'UTURN_PT2\', 10:\'UTURN_PT3\', 11:\'CORNER\', 12:\'END_EXTENSION\'}'},
                 #{'pose_filename': config_dir + '/data/stockpile/bandshell_1.txt'}
-                {'pose_filename': config_dir + '/data/stockpile/coordinates_test_jp.txt'}
+                #{'pose_filename': config_dir + '/data/stockpile/coordinates_test_jp.txt'}
+                {'pose_filename': config_dir + '/data/stockpile/inspvax_goal_path_jp.txt'}
             ]
         ),
         Node(
@@ -58,8 +59,10 @@ def generate_launch_description():
             output='screen',
             parameters = [
                 #{'starting_position': [368964.0, 3280351.0, 0.0]},  # UTM coords + 10 E from path start
-                {'starting_position': [379308.96, 6674376.88, 53.92, 1]},  # UTM coords
-                {'starting_ang_deg': 45.0},
+                #{'starting_position': [379308.96, 6674376.88, 53.92, 1]},  # UTM coords
+                {'starting_position': [379409.83, 6674482.37, 173.78, 1]},  # UTM coords
+                #{'starting_ang_deg': 45.0},
+                {'starting_ang_deg': -90.0},
                 #{'L_wheelbase_m': 0.33}  # dist between axles in meters
                 {'L_wheelbase_m': 2.0}
             ] 

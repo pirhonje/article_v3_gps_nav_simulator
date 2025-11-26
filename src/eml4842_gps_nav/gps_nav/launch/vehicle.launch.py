@@ -15,8 +15,8 @@ def generate_launch_description():
                 {'want_loop': False},
                 {'state_defs': '{0:\'OFF\', 1:\'ON\', 2:\'OUTSIDE\', 3:\'ENTRY_EXTENSION_PT\', 4:\'EXIT_EXTENSION_PT\', 5:\'EXIT_TURN_PT\', 6:\'START\', 7:\'END\', 8:\'UTURN_PT1\', 9:\'UTURN_PT2\', 10:\'UTURN_PT3\', 11:\'CORNER\', 12:\'END_EXTENSION\'}'},
                 #{'pose_filename': config_dir + '/data/stockpile/bandshell_1.txt'}
-                {'pose_filename': config_dir + '/data/stockpile/coordinates_test_jp.txt'}
-                
+                #{'pose_filename': config_dir + '/data/stockpile/coordinates_test_jp.txt'}
+                {'pose_filename': config_dir + '/data/stockpile/inspvax_goal_path_jp.txt'}
             ]
         ),
         Node(
