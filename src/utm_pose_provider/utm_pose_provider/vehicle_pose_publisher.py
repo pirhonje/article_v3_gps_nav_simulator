@@ -1,64 +1,66 @@
+import math
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String   # Replace with your message types
 
-# An example ROS2 node that subscribes to two topics, processes the data, and publishes the result
+from novatel_oem7_msgs.msg import INSPVA
+from geometry_msgs.msg import PoseStamped, Quaternion
+import utm
 
-class DualProcessorNode(Node):
+
+class VehiclePosePublisher(Node):
     def __init__(self):
-        super().__init__('dual_processor_node')
+        super().__init__('vehicle_pose_publisher')
 
-        # Storage for latest messages
-        self.msg_one = None
-        self.msg_two = None
-
-        # Subscribers
-        self.sub1 = self.create_subscription(
-            String,
-            '/topic_one',
-            self.callback_one,
+        # Subscriber to NovAtel INSPVA
+        self.subscription = self.create_subscription(
+            INSPVA,
+            '/novatel/oem7/inspva',  # <= change to your actual topic
+            self.inspva_callback,
             10
         )
 
-        self.sub2 = self.create_subscription(
-            String,
-            '/topic_two',
-            self.callback_two,
-            10
-        )
+        # Publisher for PoseStamped
+        self.publisher = self.create_publisher(PoseStamped, '/vehicle_pose', 10)
 
-        # Publisher
-        self.pub = self.create_publisher(String, '/combined_output', 10)
+    def inspva_callback(self, msg: INSPVA):
+        # Extract raw GPS + heading
+        lat = msg.latitude
+        lon = msg.longitude
+        heading_deg = msg.azimuth
 
-        self.get_logger().info("DualProcessorNode started.")
+        # Convert lat/lon → UTM
+        easting, northing, zone, letter = utm.from_latlon(lat, lon)
 
-    def callback_one(self, msg):
-        self.msg_one = msg.data
-        self.try_publish()
+        # Convert heading → quaternion (yaw-only)
+        yaw = math.radians(heading_deg)
+        q = Quaternion()
+        q.x = 0.0
+        q.y = 0.0
+        q.z = math.sin(yaw / 2.0)
+        q.w = math.cos(yaw / 2.0)
 
-    def callback_two(self, msg):
-        self.msg_two = msg.data
-        self.try_publish()
+        # Construct PoseStamped
+        pose_msg = PoseStamped()
+        pose_msg.header.stamp = self.get_clock().now().to_msg()
+        pose_msg.header.frame_id = "utm"
 
-    def try_publish(self):
-        # Only publish when both messages have arrived at least once
-        if self.msg_one is not None and self.msg_two is not None:
-            combined_text = f"{self.msg_one} | {self.msg_two}"
+        pose_msg.pose.position.x = easting
+        pose_msg.pose.position.y = northing
+        pose_msg.pose.position.z = 0.0   # if no altitude needed
 
-            out_msg = String()
-            out_msg.data = combined_text
+        pose_msg.pose.orientation = q
 
-            self.pub.publish(out_msg)
-            self.get_logger().info(f"Publishing combined: {combined_text}")
+        # Publish
+        self.publisher.publish(pose_msg)
 
 
 def main(args=None):
     rclpy.init(args=args)
-    node = DualProcessorNode()
+    node = VehiclePosePublisher()
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
