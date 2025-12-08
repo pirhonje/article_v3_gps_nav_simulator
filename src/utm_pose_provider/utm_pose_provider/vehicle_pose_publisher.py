@@ -34,7 +34,7 @@ class VehiclePosePublisher(Node):
         self.publisher = self.create_publisher(PoseStamped, '/vehicle_pose', 10)
 
         # Timer: publish latest pose + TF at 1 Hz
-        self.timer = self.create_timer(10.0, self.publish_latest_pose)
+        self.timer = self.create_timer(0.1, self.publish_latest_pose)
 
     def inspva_callback(self, msg: INSPVA):
         """Just store the most recent INSPVA message."""
@@ -64,8 +64,8 @@ class VehiclePosePublisher(Node):
             )
 
         # Convert to utm_local (relative to origin)
-        local_easting = easting - self.origin_easting
-        local_northing = northing - self.origin_northing
+        local_easting = easting #- self.origin_easting
+        local_northing = northing #- self.origin_northing
 
         # Convert heading → quaternion (yaw-only)
         yaw = math.radians(heading_deg)
