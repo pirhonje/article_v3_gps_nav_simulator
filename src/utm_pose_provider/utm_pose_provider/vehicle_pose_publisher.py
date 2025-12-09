@@ -78,7 +78,8 @@ class VehiclePosePublisher(Node):
         # Construct PoseStamped in utm_local frame
         pose_msg = PoseStamped()
         pose_msg.header.stamp = self.get_clock().now().to_msg()
-        pose_msg.header.frame_id = "utm_local"   # <<< important
+        #pose_msg.header.frame_id = "utm_local"   # <<< important #9.12
+        pose_msg.header.frame_id = "utm"
 
         pose_msg.pose.position.x = local_easting
         pose_msg.pose.position.y = local_northing
@@ -92,8 +93,12 @@ class VehiclePosePublisher(Node):
         # Also publish TF: utm_local -> base_link
         t = TransformStamped()
         t.header.stamp = pose_msg.header.stamp
-        t.header.frame_id = "utm_local"
-        t.child_frame_id = "base_link"
+        
+        #t.header.frame_id = "utm_local" # <<< important #9.12
+        #t.child_frame_id = "base_link" # <<< important #9.12   
+        t.header.frame_id = "utm"
+        t.child_frame_id = "vehicle"
+
 
         t.transform.translation.x = local_easting
         t.transform.translation.y = local_northing
