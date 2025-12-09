@@ -10,9 +10,12 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        #launch definition
+        #launch definition for vehicle pose
         ('share/' + package_name + '/launch',
             ['launch/vehicle_pose_publisher.launch.py']),
+        #launch definition for vehicle telemetry display
+        ('share/' + package_name + '/launch',
+            ['launch/vehicle_telemetry.launch.py']),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -29,6 +32,7 @@ setup(
         'console_scripts': [
             # executable name   =   python path to file : function
             'vehicle_pose_publisher = utm_pose_provider.vehicle_pose_publisher:main',
+            'vehicle_telemetry = utm_pose_provider.vehicle_telemetry:main',
         ],
     },
 )
