@@ -68,7 +68,8 @@ class VehiclePosePublisher(Node):
         local_northing = northing #- self.origin_northing
 
         # Convert heading → quaternion (yaw-only)
-        yaw = math.radians(heading_deg)
+        #yaw = math.radians(heading_deg)
+        yaw = math.radians(90.0 - heading_deg)
         q = Quaternion()
         q.x = 0.0
         q.y = 0.0
