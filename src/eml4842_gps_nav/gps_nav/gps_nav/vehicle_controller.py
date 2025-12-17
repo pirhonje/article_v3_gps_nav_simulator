@@ -17,7 +17,7 @@ class VehicleController(Node):
         super().__init__("vehicle_controller")
 
         #self.declare_parameter("L_wheelbase_m", 0.33)
-        self.declare_parameter("L_wheelbase_m", 2.0)
+        self.declare_parameter("L_wheelbase_m", 2.7)
 
         self.subscription1 = self.create_subscription(PoseStamped, "vehicle_pose", self.vehicle_pose_callback, 1)
 

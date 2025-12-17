@@ -48,7 +48,7 @@ def generate_launch_description():
             output='screen',
             parameters = [
                 #{'L_wheelbase_m': 0.33}  # dist between axles in meters
-                {'L_wheelbase_m': 2.0}  # dist between axles in meters
+                {'L_wheelbase_m': 2.7}  # dist between axles in meters
             ] 
         ),
 
@@ -64,7 +64,7 @@ def generate_launch_description():
                 #{'starting_ang_deg': 45.0},
                 {'starting_ang_deg': -90.0},
                 #{'L_wheelbase_m': 0.33}  # dist between axles in meters
-                {'L_wheelbase_m': 2.0}
+                {'L_wheelbase_m': 2.7}
             ] 
         ),
         Node(
@@ -74,7 +74,7 @@ def generate_launch_description():
             output='screen',
             parameters = [
                 #{'look_ahead_dist': 3.0},  # meters
-                {'look_ahead_dist': 5.0},  # meters
+                {'look_ahead_dist': 6.0},  # meters
                 {'speed': 2.0}  # meters/sec
             ] 
         ),
